@@ -1,4 +1,4 @@
-package org.zzmfish;
+package org.zzmfish.TVBrowser;
 
 import android.content.Context;
 import android.util.AttributeSet;

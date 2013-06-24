@@ -1,4 +1,4 @@
-package org.zzmfish;
+package org.zzmfish.TVBrowser;
 
 import android.app.Activity;
 import android.os.Bundle;
