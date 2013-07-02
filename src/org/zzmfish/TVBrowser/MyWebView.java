@@ -16,6 +16,7 @@ public class MyWebView extends WebView
     private static final String TAG = "MyWebView";
     private Point mCursor = new Point(100, 100);
     private Paint mPaint = new Paint();
+    private boolean mEnableCursor = false;
 
     public MyWebView(Context context) {
         this(context, null);
@@ -42,40 +43,45 @@ public class MyWebView extends WebView
 
 	@Override
 	public boolean onKeyDown(int keyCode, KeyEvent event) {
-		Log.d(TAG, "MyWebView.onKeyDown");
-		switch (keyCode) {
-		case KeyEvent.KEYCODE_DPAD_LEFT:
-			if (mCursor.x > 0)
-				mCursor.x -= 10;
-			break;
-		case KeyEvent.KEYCODE_DPAD_RIGHT:
-			if (mCursor.x < getWidth() - 1)
-				mCursor.x += 10;
-			break;
-		case KeyEvent.KEYCODE_DPAD_UP:
-			if (mCursor.y > 0)
-				mCursor.y -= 10;
-			break;
-		case KeyEvent.KEYCODE_DPAD_DOWN:
-			if (mCursor.y < this.getHeight() - 1)
-				mCursor.y += 10;
-			break;
+		if (mEnableCursor) {
+			Log.d(TAG, "MyWebView.onKeyDown");
+			switch (keyCode) {
+			case KeyEvent.KEYCODE_DPAD_LEFT:
+				if (mCursor.x > 0)
+					mCursor.x -= 10;
+				break;
+			case KeyEvent.KEYCODE_DPAD_RIGHT:
+				if (mCursor.x < getWidth() - 1)
+					mCursor.x += 10;
+				break;
+			case KeyEvent.KEYCODE_DPAD_UP:
+				if (mCursor.y > 0)
+					mCursor.y -= 10;
+				break;
+			case KeyEvent.KEYCODE_DPAD_DOWN:
+				if (mCursor.y < this.getHeight() - 1)
+					mCursor.y += 10;
+				break;
+			}
+			//Log.d("zhouzm", "x=" + mCursor.x + ", y=" + mCursor.y);
+			//loadUrl("javascript:console.log(document.elementFromPoint(" + mCursor.x + ", " + mCursor.y + "))");
+			//loadUrl("javascript:console.log(document.elementFromPoint(" + mCursor.x + ", " + mCursor.y + ").focus())");
+			loadUrl("javascript:document.elementFromPoint(" + mCursor.x + ", " + mCursor.y + ").focus()");
+			invalidate();
+			return true;
 		}
-		//Log.d("zhouzm", "x=" + mCursor.x + ", y=" + mCursor.y);
-		//loadUrl("javascript:console.log(document.elementFromPoint(" + mCursor.x + ", " + mCursor.y + "))");
-		loadUrl("javascript:document.elementFromPoint(" + mCursor.x + ", " + mCursor.y + ").focus()");
-		boolean result = super.onKeyDown(keyCode, event);
-		this.invalidate();
-		return result;
+		else {
+			return super.onKeyDown(keyCode, event);
+		}
 	}
 
 	@Override
 	protected void onDraw(Canvas canvas) {
 		//Log.d(TAG, "MyWebView.onDraw");
 		super.onDraw(canvas);
-		canvas.drawCircle(mCursor.x, mCursor.y, 3, mPaint);
+		if (mEnableCursor) {
+			canvas.drawCircle(mCursor.x, mCursor.y, 3, mPaint);
+		}
 	}
-
-
 }
 
