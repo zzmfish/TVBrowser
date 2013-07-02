@@ -1,5 +1,6 @@
 package org.zzmfish.TVBrowser;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Paint;
@@ -7,12 +8,14 @@ import android.graphics.Point;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.KeyEvent;
+import android.webkit.WebChromeClient;
 import android.webkit.WebView;
 
 public class MyWebView extends WebView
 {
     private static final String TAG = "MyWebView";
     private Point mCursor = new Point(100, 100);
+    private Paint mPaint = new Paint();
 
     public MyWebView(Context context) {
         this(context, null);
@@ -24,6 +27,17 @@ public class MyWebView extends WebView
 
     public MyWebView(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
+    }
+    
+    @SuppressLint("SetJavaScriptEnabled")
+	public void init() {
+    	mPaint.setColor(0xffff0000);
+        getSettings().setJavaScriptEnabled(true);
+        setWebChromeClient(new WebChromeClient() {
+        	public void onConsoleMessage(String message, int lineNumber, String sourceID) {
+        		Log.d("MyWebView", message);
+        	}
+        });
     }
 
 	@Override
@@ -47,7 +61,9 @@ public class MyWebView extends WebView
 				mCursor.y += 10;
 			break;
 		}
-		Log.d("zhouzm", "x=" + mCursor.x + ", y=" + mCursor.y);
+		//Log.d("zhouzm", "x=" + mCursor.x + ", y=" + mCursor.y);
+		//loadUrl("javascript:console.log(document.elementFromPoint(" + mCursor.x + ", " + mCursor.y + "))");
+		loadUrl("javascript:document.elementFromPoint(" + mCursor.x + ", " + mCursor.y + ").focus()");
 		boolean result = super.onKeyDown(keyCode, event);
 		this.invalidate();
 		return result;
@@ -55,11 +71,9 @@ public class MyWebView extends WebView
 
 	@Override
 	protected void onDraw(Canvas canvas) {
-		Log.d(TAG, "MyWebView.onDraw");
+		//Log.d(TAG, "MyWebView.onDraw");
 		super.onDraw(canvas);
-		Paint paint = new Paint();
-		paint.setColor(0xffff0000);
-		canvas.drawCircle(mCursor.x, mCursor.y, 3, paint);
+		canvas.drawCircle(mCursor.x, mCursor.y, 3, mPaint);
 	}
 
 

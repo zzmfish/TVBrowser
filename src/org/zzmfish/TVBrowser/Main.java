@@ -14,6 +14,7 @@ public class Main extends Activity
         setContentView(R.layout.main);
 
         webview = (MyWebView)findViewById(R.id.webview);
+        webview.init();
         webview.loadUrl("http://www.baidu.com");
     }
 }
