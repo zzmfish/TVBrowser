@@ -1,9 +1,11 @@
 package org.zzmfish.TVBrowser;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
+import android.view.MenuItem;
 
 public class Main extends Activity
 {
@@ -24,6 +26,17 @@ public class Main extends Activity
 		MenuInflater inflater = getMenuInflater();
 	    inflater.inflate(R.menu.menu, menu);
 	    return true;
+	}
+	@Override
+	public boolean onMenuItemSelected(int featureId, MenuItem item) {
+		switch (item.getItemId()) {
+		case R.id.home:
+			startActivity(new Intent(this, HomeActivity.class));
+			return true;
+		default:
+			return super.onMenuItemSelected(featureId, item);
+		}
+		
 	}
     
     
