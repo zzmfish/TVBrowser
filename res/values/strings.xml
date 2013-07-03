@@ -3,9 +3,10 @@
 
     <string name="app_name">浏览器</string>
     <string name="home">首页</string>
-    <string name="url">网址</string>
+    <string name="url">网址：</string>
     <string name="title_activity_home">HomeActivity</string>
     <string name="action_settings">Settings</string>
     <string name="hello_world">Hello world!</string>
+    <string name="open">打开</string>
 
 </resources>

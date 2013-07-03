@@ -16,10 +16,18 @@ public class Main extends Activity
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main);
+        
+        String url = null;
+        Bundle extras = getIntent().getExtras();
+        if (extras != null) {
+        	url = getIntent().getExtras().getString("url");
+        }
+        if (url == null)
+        	url = "about:blank";
 
         webview = (MyWebView)findViewById(R.id.webview);
         webview.init();
-        webview.loadUrl("http://www.baidu.com");
+        webview.loadUrl(url);
     }
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {

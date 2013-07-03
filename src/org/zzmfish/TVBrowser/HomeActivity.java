@@ -2,8 +2,11 @@ package org.zzmfish.TVBrowser;
 
 import android.os.Bundle;
 import android.app.Activity;
+import android.content.Intent;
 import android.util.Log;
 import android.view.Menu;
+import android.view.View;
+import android.widget.EditText;
 
 public class HomeActivity extends Activity {
 
@@ -21,4 +24,11 @@ public class HomeActivity extends Activity {
 		return true;
 	}
 
+	public void openUrl(View view) {
+		EditText editText = (EditText) findViewById(R.id.url);
+		String url = editText.getText().toString();
+		Intent intent = new Intent(this, Main.class);
+		intent.putExtra("url", url);
+	    startActivity(intent);
+	}
 }
