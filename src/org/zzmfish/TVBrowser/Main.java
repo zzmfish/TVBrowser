@@ -2,6 +2,8 @@ package org.zzmfish.TVBrowser;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuInflater;
 
 public class Main extends Activity
 {
@@ -17,4 +19,12 @@ public class Main extends Activity
         webview.init();
         webview.loadUrl("http://www.baidu.com");
     }
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+		MenuInflater inflater = getMenuInflater();
+	    inflater.inflate(R.menu.menu, menu);
+	    return true;
+	}
+    
+    
 }
