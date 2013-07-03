@@ -7,7 +7,7 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 
-public class Main extends Activity
+public class WebActivity extends Activity
 {
     MyWebView webview;
     /** Called when the activity is first created. */
@@ -15,7 +15,7 @@ public class Main extends Activity
     public void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.main);
+        setContentView(R.layout.activity_web);
         
         String url = null;
         Bundle extras = getIntent().getExtras();

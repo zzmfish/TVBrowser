@@ -27,7 +27,7 @@ public class HomeActivity extends Activity {
 	public void openUrl(View view) {
 		EditText editText = (EditText) findViewById(R.id.url);
 		String url = editText.getText().toString();
-		Intent intent = new Intent(this, Main.class);
+		Intent intent = new Intent(this, WebActivity.class);
 		intent.putExtra("url", url);
 	    startActivity(intent);
 	}
