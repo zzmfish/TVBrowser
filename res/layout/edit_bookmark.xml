@@ -40,7 +40,7 @@
             android:textAppearance="?android:attr/textAppearanceMedium" />
 
         <EditText
-            android:id="@+id/add_bookmark_url"
+            android:id="@+id/edit_bookmark_url"
             android:layout_width="0dip"
             android:layout_height="wrap_content"
             android:layout_weight="1"
