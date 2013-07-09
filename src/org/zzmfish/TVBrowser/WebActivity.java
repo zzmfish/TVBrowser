@@ -1,5 +1,7 @@
 package org.zzmfish.TVBrowser;
 
+import org.zzmfish.TVBrowser.Bookmarks.Bookmark;
+
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
@@ -79,6 +81,12 @@ class EditBookmarkDialog extends DialogFragment {
         builder.setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
         		@Override
         		public void onClick(DialogInterface dialog, int id) {
+        			Dialog myDialog = EditBookmarkDialog.this.getDialog();
+        			String name = ((EditText) myDialog.findViewById(R.id.edit_bookmark_name)).getText().toString();
+        			String url = ((EditText) myDialog.findViewById(R.id.edit_bookmark_url)).getText().toString();
+        			//Log.d("zhouzm", "name=" + name + ", url=" + url);
+        			Bookmarks.getInstance().add(name, url);
+        			Bookmarks.getInstance().save(EditBookmarkDialog.this.getActivity().getApplicationContext());
         		}
         	});
         builder.setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
