@@ -15,6 +15,7 @@ public class HomeActivity extends Activity {
 		Log.d("zhouzm", "HomeActivity.onCreate");
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_home);
+		Bookmarks.getInstance().load(getApplicationContext());
 	}
 
 	@Override
