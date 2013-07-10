@@ -132,4 +132,12 @@ public class Bookmarks {
 			e.printStackTrace();
 		}
 	}
+	
+	public Bookmark get(int i) {
+		return mBookmarkList.get(i);
+	}
+	
+	public int count() {
+		return mBookmarkList.size();
+	}
 }

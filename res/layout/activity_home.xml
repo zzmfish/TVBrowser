@@ -38,7 +38,7 @@
     </LinearLayout>
 
     <GridView
-        android:id="@+id/gridView1"
+        android:id="@+id/bookmarks"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:numColumns="3" >
