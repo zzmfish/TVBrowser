@@ -9,6 +9,8 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.BaseAdapter;
 import android.widget.EditText;
 import android.widget.GridView;
@@ -35,6 +37,10 @@ public class HomeActivity extends Activity {
 	public void openUrl(View view) {
 		EditText editText = (EditText) findViewById(R.id.url);
 		String url = editText.getText().toString();
+		openUrl(url);
+	}
+	
+	public void openUrl(String url) {
 		Intent intent = new Intent(this, WebActivity.class);
 		intent.putExtra("url", url);
 	    startActivity(intent);
@@ -73,8 +79,21 @@ public class HomeActivity extends Activity {
 		}
 		
 	}
+
 	public void showBookmarks() {
 		GridView gridView = (GridView) findViewById(R.id.bookmarks);
+		gridView.setOnItemClickListener(new OnItemClickListener() {
+			@Override
+			public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+				try {
+					Bookmark bookmark = Bookmarks.getInstance().get(position);
+					openUrl(bookmark.getUrl());
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+			
+		});
 		gridView.setAdapter(new BookmarksAdapter());
 	}
 }
