@@ -2,6 +2,7 @@ package org.zzmfish.TVBrowser;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.Point;
@@ -10,6 +11,7 @@ import android.util.Log;
 import android.view.KeyEvent;
 import android.webkit.WebChromeClient;
 import android.webkit.WebView;
+import android.webkit.WebViewClient;
 
 public class MyWebView extends WebView
 {
@@ -39,10 +41,23 @@ public class MyWebView extends WebView
         		Log.d("MyWebView", message);
         	}
         });
+        setWebViewClient(new WebViewClient(){
+        	public boolean shouldOverrideUrlLoading(WebView view, String url) {
+        		loadUrl(url);
+        		return true;
+        	}
+        });
     }
 
 	@Override
 	public boolean onKeyDown(int keyCode, KeyEvent event) {
+		if (keyCode == KeyEvent.KEYCODE_BACK) {
+			if (canGoBack())
+				goBack();
+			else
+				getContext().startActivity(new Intent(this.getContext(), HomeActivity.class));
+			return true;
+		}
 		if (mEnableCursor) {
 			Log.d(TAG, "MyWebView.onKeyDown");
 			switch (keyCode) {
