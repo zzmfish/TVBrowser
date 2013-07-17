@@ -24,19 +24,26 @@ public class WebActivity extends Activity
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_web);
-        
-        String url = null;
-        Bundle extras = getIntent().getExtras();
-        if (extras != null) {
-        	url = getIntent().getExtras().getString("url");
-        }
-        if (url == null)
-        	url = "about:blank";
-
-        mWebView = (MyWebView)findViewById(R.id.webview);
-        mWebView.init();
-        mWebView.loadUrl(url);
+        onNewIntent(getIntent());
     }
+    
+    
+	@Override
+	protected void onNewIntent(Intent intent) {
+		Bundle extras = intent.getExtras();
+        if (extras != null) {
+        	String url = getIntent().getExtras().getString("url");
+        	if (url == null)
+            	url = "about:blank";
+        	if (mWebView == null) {
+        		mWebView = (MyWebView)findViewById(R.id.webview);
+                mWebView.init();
+        	}
+        	mWebView.loadUrl(url);
+        }
+	}
+
+
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		MenuInflater inflater = getMenuInflater();
@@ -47,7 +54,9 @@ public class WebActivity extends Activity
 	public boolean onMenuItemSelected(int featureId, MenuItem item) {
 		switch (item.getItemId()) {
 		case R.id.menu_home:
-			startActivity(new Intent(this, HomeActivity.class));
+			Intent intent = new Intent(this, HomeActivity.class);
+			intent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+			startActivity(intent);
 			return true;
 		case R.id.menu_add_bookmark:
 			Log.d("zhouzm", "add_to_home");

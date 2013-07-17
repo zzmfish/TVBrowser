@@ -43,6 +43,7 @@ public class HomeActivity extends Activity {
 	public void openUrl(String url) {
 		Intent intent = new Intent(this, WebActivity.class);
 		intent.putExtra("url", url);
+		intent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
 	    startActivity(intent);
 	}
 	
