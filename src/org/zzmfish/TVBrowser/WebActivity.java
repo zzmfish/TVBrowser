@@ -13,17 +13,23 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.webkit.WebChromeClient;
+import android.webkit.WebView;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 
 public class WebActivity extends Activity
 {
     MyWebView mWebView;
+    ProgressBar mProgressBar;
+    
     /** Called when the activity is first created. */
     @Override
     public void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_web);
+        mProgressBar = (ProgressBar) findViewById(R.id.webProgress);
         onNewIntent(getIntent());
     }
     
@@ -38,6 +44,22 @@ public class WebActivity extends Activity
         	if (mWebView == null) {
         		mWebView = (MyWebView)findViewById(R.id.webview);
                 mWebView.init();
+                mWebView.setWebChromeClient(new WebChromeClient() {
+                	public void onConsoleMessage(String message, int lineNumber, String sourceID) {
+                		Log.d("MyWebView", message);
+                	}
+
+        			@Override
+        			public void onProgressChanged(WebView view, int newProgress) {
+        				if (mProgressBar != null) {
+        					mProgressBar.setProgress(newProgress);
+        					if (newProgress == 100)
+        						mProgressBar.setVisibility(View.INVISIBLE);
+        					else
+        						mProgressBar.setVisibility(View.VISIBLE);
+        				}
+        			}
+                });
         	}
         	mWebView.loadUrl(url);
         }

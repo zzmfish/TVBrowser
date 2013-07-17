@@ -36,11 +36,6 @@ public class MyWebView extends WebView
 	public void init() {
     	mPaint.setColor(0xffff0000);
         getSettings().setJavaScriptEnabled(true);
-        setWebChromeClient(new WebChromeClient() {
-        	public void onConsoleMessage(String message, int lineNumber, String sourceID) {
-        		Log.d("MyWebView", message);
-        	}
-        });
         setWebViewClient(new WebViewClient(){
         	public boolean shouldOverrideUrlLoading(WebView view, String url) {
         		loadUrl(url);
