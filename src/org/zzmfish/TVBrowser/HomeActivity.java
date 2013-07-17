@@ -96,4 +96,8 @@ public class HomeActivity extends Activity {
 		});
 		gridView.setAdapter(new BookmarksAdapter());
 	}
+	
+	public void exit(View view) {
+		finish();
+	}
 }

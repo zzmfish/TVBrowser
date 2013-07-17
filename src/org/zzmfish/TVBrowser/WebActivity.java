@@ -1,7 +1,5 @@
 package org.zzmfish.TVBrowser;
 
-import org.zzmfish.TVBrowser.Bookmarks.Bookmark;
-
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;

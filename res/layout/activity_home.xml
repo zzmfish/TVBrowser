@@ -1,4 +1,4 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/LinearLayout1"
     android:layout_width="match_parent"
@@ -7,6 +7,7 @@
     tools:context=".HomeActivity" >
 
     <LinearLayout
+        android:id="@+id/urlLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" >
 
@@ -41,7 +42,21 @@
         android:id="@+id/bookmarks"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_below="@id/urlLayout"
         android:numColumns="3" >
     </GridView>
 
-</LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true">
+
+        <Button
+            android:id="@+id/exitButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/exit"
+            android:onClick="exit" />
+    </LinearLayout>
+
+</RelativeLayout>
