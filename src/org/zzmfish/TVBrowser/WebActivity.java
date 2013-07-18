@@ -54,7 +54,7 @@ public class WebActivity extends Activity
         				if (mProgressBar != null) {
         					mProgressBar.setProgress(newProgress);
         					if (newProgress == 100)
-        						mProgressBar.setVisibility(View.INVISIBLE);
+        						mProgressBar.setVisibility(View.GONE);
         					else
         						mProgressBar.setVisibility(View.VISIBLE);
         				}
