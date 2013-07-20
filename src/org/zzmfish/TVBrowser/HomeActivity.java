@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.app.Activity;
 import android.content.Intent;
 import android.util.Log;
+import android.util.TypedValue;
 import android.view.Menu;
 import android.view.View;
 import android.view.ViewGroup;
@@ -76,6 +77,7 @@ public class HomeActivity extends Activity {
 			else
 				textView = (TextView) convertView;
 			textView.setText(bookmark.getName());
+			textView.setTextSize(TypedValue.COMPLEX_UNIT_SP, 20);
 			return textView;
 		}
 		
