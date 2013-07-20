@@ -6,9 +6,11 @@ import java.lang.reflect.Method;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences.Editor;
 import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.Point;
+import android.preference.PreferenceManager;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.KeyEvent;
@@ -17,11 +19,12 @@ import android.webkit.WebViewClient;
 
 public class MyWebView extends WebView
 {
+	private static final String PREF_ZOOM_DENSITY = "zoom_density";
     private static final String TAG = "MyWebView";
     private Point mCursor = new Point(100, 100);
     private Paint mPaint = new Paint();
     private boolean mEnableCursor = false;
-    private int mZoomDensity = 100;
+    private int mZoomDensity;
 
     public MyWebView(Context context) {
         this(context, null);
@@ -45,20 +48,43 @@ public class MyWebView extends WebView
         		return true;
         	}
         });
+        loadPrefs();
         setZoomDensity(mZoomDensity);
     }
     
+    private void loadPrefs() {
+    	loadZoomDensity();
+    }
+    
+    private void loadZoomDensity() {
+    	mZoomDensity = PreferenceManager.getDefaultSharedPreferences(getContext()).getInt(PREF_ZOOM_DENSITY, 100);
+    	if (mZoomDensity == 0)
+    		mZoomDensity = 100;
+    	Log.d("zhouzm", "loadZoomDensity:" + mZoomDensity);
+    }
+    
+    private void saveZoomDensity() {
+    	Editor editor = PreferenceManager.getDefaultSharedPreferences(getContext()).edit();
+    	editor.putInt(PREF_ZOOM_DENSITY, mZoomDensity);
+    	editor.commit();
+    	Log.d("zhouzm", "saveZoomDensity:" + mZoomDensity);
+    }
     public void increateZoomDensity() {
-    	mZoomDensity = (int) (mZoomDensity * 1.25);
-    	setZoomDensity(mZoomDensity);
+    	setZoomDensity((int) (mZoomDensity * 1.25));
+    	saveZoomDensity();
     }
     
     public void decreateZoomDensity() {
-    	mZoomDensity = (int) (mZoomDensity * 0.8);
-    	setZoomDensity(mZoomDensity);
+    	setZoomDensity((int) (mZoomDensity * 0.8));
+    	saveZoomDensity();
     }
     
     private void setZoomDensity(int value) {
+    	if (value < 10)
+    		value = 10;
+    	else if (value > 1000)
+    		value = 1000;
+    	mZoomDensity = value;
     	try {
 			Class<?> c = Class.forName("android.webkit.WebView");
 			Method methods[] = c.getDeclaredMethods();
