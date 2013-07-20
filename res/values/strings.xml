@@ -13,5 +13,7 @@
     <string name="cancel">取消</string>
     <string name="name">名称：</string>
     <string name="exit">退出</string>
+    <string name="zoom_in">放大</string>
+    <string name="zoom_out">缩小</string>
 
 </resources>

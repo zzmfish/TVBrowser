@@ -1,5 +1,8 @@
 package org.zzmfish.TVBrowser;
 
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
+
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
@@ -9,7 +12,6 @@ import android.graphics.Point;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.KeyEvent;
-import android.webkit.WebChromeClient;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
@@ -19,6 +21,7 @@ public class MyWebView extends WebView
     private Point mCursor = new Point(100, 100);
     private Paint mPaint = new Paint();
     private boolean mEnableCursor = false;
+    private int mZoomDensity = 100;
 
     public MyWebView(Context context) {
         this(context, null);
@@ -42,6 +45,47 @@ public class MyWebView extends WebView
         		return true;
         	}
         });
+        setZoomDensity(mZoomDensity);
+    }
+    
+    public void increateZoomDensity() {
+    	mZoomDensity = (int) (mZoomDensity * 1.25);
+    	setZoomDensity(mZoomDensity);
+    }
+    
+    public void decreateZoomDensity() {
+    	mZoomDensity = (int) (mZoomDensity * 0.8);
+    	setZoomDensity(mZoomDensity);
+    }
+    
+    private void setZoomDensity(int value) {
+    	try {
+			Class<?> c = Class.forName("android.webkit.WebView");
+			Method methods[] = c.getDeclaredMethods();
+	    	for (int i = 0; i < methods.length; i ++) {
+	    		Method method = methods[i];
+	    		if (method.getName().equals("adjustDefaultZoomDensity")) {
+	    			method.setAccessible(true);
+	    			try {
+						method.invoke(this, value);
+					} catch (IllegalArgumentException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					} catch (IllegalAccessException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					} catch (InvocationTargetException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+	    			break;
+	    		}
+	    		
+	    	}
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
     }
 
 	@Override

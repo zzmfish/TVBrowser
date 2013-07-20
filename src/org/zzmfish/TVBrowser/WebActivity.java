@@ -85,6 +85,12 @@ public class WebActivity extends Activity
 		    DialogFragment newFragment = new EditBookmarkDialog(mWebView.getTitle(), mWebView.getUrl());
 		    newFragment.show(getFragmentManager(), "missiles");
 			return true;
+		case R.id.menu_zoom_in:
+			mWebView.decreateZoomDensity();
+			return true;
+		case R.id.menu_zoom_out:
+			mWebView.increateZoomDensity();
+			return true;
 		default:
 			return super.onMenuItemSelected(featureId, item);
 		}

@@ -2,6 +2,8 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android" >
     <item android:id="@+id/menu_home" android:title="@string/home"></item>
     <item android:id="@+id/menu_add_bookmark" android:title="@string/add_bookmark"></item>
+    <item android:id="@+id/menu_zoom_in" android:title="@string/zoom_in"></item>
+    <item android:id="@+id/menu_zoom_out" android:title="@string/zoom_out"></item>
     
 
 </menu>
