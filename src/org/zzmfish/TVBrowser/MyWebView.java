@@ -119,8 +119,11 @@ public class MyWebView extends WebView
 		if (keyCode == KeyEvent.KEYCODE_BACK) {
 			if (canGoBack())
 				goBack();
-			else
-				getContext().startActivity(new Intent(this.getContext(), HomeActivity.class));
+			else {
+				Intent intent = new Intent(getContext(), HomeActivity.class);
+				intent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+				getContext().startActivity(intent);
+			}
 			return true;
 		}
 		if (mEnableCursor) {

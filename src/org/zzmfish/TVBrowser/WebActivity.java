@@ -22,6 +22,7 @@ public class WebActivity extends Activity
 {
     MyWebView mWebView;
     ProgressBar mProgressBar;
+    static WebActivity mInstance = null;
     
     /** Called when the activity is first created. */
     @Override
@@ -30,10 +31,19 @@ public class WebActivity extends Activity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_web);
         mProgressBar = (ProgressBar) findViewById(R.id.webProgress);
+        mInstance = this;
         onNewIntent(getIntent());
     }
     
-    
+	@Override
+	protected void onDestroy() {
+		// TODO Auto-generated method stub
+		super.onDestroy();
+		mInstance = null;
+	}
+
+
+
 	@Override
 	protected void onNewIntent(Intent intent) {
 		Bundle extras = intent.getExtras();
@@ -48,7 +58,7 @@ public class WebActivity extends Activity
                 	public void onConsoleMessage(String message, int lineNumber, String sourceID) {
                 		Log.d("MyWebView", message);
                 	}
-
+                	
         			@Override
         			public void onProgressChanged(WebView view, int newProgress) {
         				if (mProgressBar != null) {

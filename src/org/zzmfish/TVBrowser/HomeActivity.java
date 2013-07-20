@@ -100,5 +100,8 @@ public class HomeActivity extends Activity {
 	
 	public void exit(View view) {
 		finish();
+		if (WebActivity.mInstance != null)
+			WebActivity.mInstance.finish();
+		System.exit(0);
 	}
 }
