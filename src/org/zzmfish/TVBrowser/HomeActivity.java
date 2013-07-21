@@ -90,7 +90,7 @@ public class HomeActivity extends Activity {
 			else
 				textView = (TextView) convertView;
 			textView.setText(bookmark.getName());
-			textView.setTextSize(TypedValue.COMPLEX_UNIT_SP, 20);
+			textView.setTextSize(TypedValue.COMPLEX_UNIT_SP, 30);
 			return textView;
 		}
 		
