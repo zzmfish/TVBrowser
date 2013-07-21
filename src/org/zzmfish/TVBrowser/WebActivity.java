@@ -60,6 +60,8 @@ public class WebActivity extends Activity
 	void loadUrl(String url) {
     	if (url == null)
         	url = "about:blank";
+    	else if (url.indexOf("://") == -1)
+    		url = "http://" + url;
     	if (mWebView == null) {
     		mWebView = (MyWebView)findViewById(R.id.webview);
             mWebView.init();
