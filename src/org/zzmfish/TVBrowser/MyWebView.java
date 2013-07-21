@@ -116,16 +116,6 @@ public class MyWebView extends WebView
 
 	@Override
 	public boolean onKeyDown(int keyCode, KeyEvent event) {
-		if (keyCode == KeyEvent.KEYCODE_BACK) {
-			if (canGoBack())
-				goBack();
-			else {
-				Intent intent = new Intent(getContext(), HomeActivity.class);
-				intent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
-				getContext().startActivity(intent);
-			}
-			return true;
-		}
 		if (mEnableCursor) {
 			Log.d(TAG, "MyWebView.onKeyDown");
 			switch (keyCode) {

@@ -20,13 +20,11 @@
         android:theme="@android:style/Theme.NoTitleBar" >
         <activity
             android:name="org.zzmfish.TVBrowser.WebActivity"
-            android:label="@string/app_name"
-            android:launchMode="singleTop" >
+            android:label="@string/app_name" >
         </activity>
         <activity
             android:name="org.zzmfish.TVBrowser.HomeActivity"
-            android:label="@string/app_name"
-            android:launchMode="singleTop" >
+            android:label="@string/app_name" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />

@@ -28,6 +28,7 @@ public class WebActivity extends Activity
     @Override
     public void onCreate(Bundle savedInstanceState)
     {
+    	Log.d("zhouzm", "WebActivity.onCreate");
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_web);
         mProgressBar = (ProgressBar) findViewById(R.id.webProgress);
@@ -37,6 +38,7 @@ public class WebActivity extends Activity
     
 	@Override
 	protected void onDestroy() {
+		Log.d("zhouzm", "WebActivity.onDestroy");
 		// TODO Auto-generated method stub
 		super.onDestroy();
 		mInstance = null;
@@ -46,33 +48,39 @@ public class WebActivity extends Activity
 
 	@Override
 	protected void onNewIntent(Intent intent) {
+		Log.d("zhouzm", "WebActivity.onNewIntent");
 		Bundle extras = intent.getExtras();
         if (extras != null) {
-        	String url = getIntent().getExtras().getString("url");
-        	if (url == null)
-            	url = "about:blank";
-        	if (mWebView == null) {
-        		mWebView = (MyWebView)findViewById(R.id.webview);
-                mWebView.init();
-                mWebView.setWebChromeClient(new WebChromeClient() {
-                	public void onConsoleMessage(String message, int lineNumber, String sourceID) {
-                		Log.d("MyWebView", message);
-                	}
-                	
-        			@Override
-        			public void onProgressChanged(WebView view, int newProgress) {
-        				if (mProgressBar != null) {
-        					mProgressBar.setProgress(newProgress);
-        					if (newProgress == 100)
-        						mProgressBar.setVisibility(View.GONE);
-        					else
-        						mProgressBar.setVisibility(View.VISIBLE);
-        				}
-        			}
-                });
-        	}
-        	mWebView.loadUrl(url);
+        	String url = extras.getString("url");
+        	loadUrl(url);
+        	
         }
+	}
+	
+	void loadUrl(String url) {
+    	if (url == null)
+        	url = "about:blank";
+    	if (mWebView == null) {
+    		mWebView = (MyWebView)findViewById(R.id.webview);
+            mWebView.init();
+            mWebView.setWebChromeClient(new WebChromeClient() {
+            	public void onConsoleMessage(String message, int lineNumber, String sourceID) {
+            		Log.d("MyWebView", message);
+            	}
+            	
+    			@Override
+    			public void onProgressChanged(WebView view, int newProgress) {
+    				if (mProgressBar != null) {
+    					mProgressBar.setProgress(newProgress);
+    					if (newProgress == 100)
+    						mProgressBar.setVisibility(View.GONE);
+    					else
+    						mProgressBar.setVisibility(View.VISIBLE);
+    				}
+    			}
+            });
+    	}
+    	mWebView.loadUrl(url);
 	}
 
 
@@ -87,7 +95,7 @@ public class WebActivity extends Activity
 		switch (item.getItemId()) {
 		case R.id.menu_home:
 			Intent intent = new Intent(this, HomeActivity.class);
-			intent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+			intent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
 			startActivity(intent);
 			return true;
 		case R.id.menu_add_bookmark:

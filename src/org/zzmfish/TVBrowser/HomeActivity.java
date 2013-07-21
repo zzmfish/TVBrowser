@@ -29,6 +29,19 @@ public class HomeActivity extends Activity {
 	}
 
 	@Override
+	protected void onDestroy() {
+		Log.d("zhouzm", "HomeActivity.onDestroy");
+		super.onDestroy();
+	}
+
+	@Override
+	protected void onNewIntent(Intent intent) {
+		Log.d("zhouzm", "HomeActivity.onNewIntent");
+		// TODO Auto-generated method stub
+		super.onNewIntent(intent);
+	}
+
+	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.
 		getMenuInflater().inflate(R.menu.home, menu);
@@ -43,8 +56,8 @@ public class HomeActivity extends Activity {
 	
 	public void openUrl(String url) {
 		Intent intent = new Intent(this, WebActivity.class);
+		intent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
 		intent.putExtra("url", url);
-		intent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
 	    startActivity(intent);
 	}
 	
